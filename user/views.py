@@ -1,34 +1,39 @@
 from django.shortcuts import render,redirect
 from .models import User
+from django.contrib.auth import login, authenticate
 # Create your views here.
 def signup(request):
     if request.method == 'GET':
         return render(request,'signup.html')
+        
     elif request.method == 'POST':
-        username = request.POST.get('username')
-        password = request.POST.get('password')
-        phone = request.POST.get('phone')
-        address = request.POST.get('address')
-        User.objects.create_user(username=username,password=password,phone=phone,address=address)
-        return redirect('login/')
+        user = User()
+        user.username = request.POST.get('username')
+        user.set_password(request.POST.get('password'))
+        user.phone = request.POST.get('phone')
+        user.address = request.POST.get('address')
 
-def login(request):
+        user.save()
+        return redirect('/login/')
+        
+
+
+def log_in(request):
     if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
-        me = User.objects.get(username=username)
-        if me.password == password:
-            request.session['user']=me.username
+        user = authenticate(request,username=username,password=password)
+        if user is not None:
+            login(request,user)
             return redirect('/home')
     elif request.method == 'GET':
         return render(request,'login.html')
     
     
 def home(request):
-
     user= request.user.is_authenticated
     if user:
         return render(request,'home.html')
     else:
-        return render(request,'login.html')
-        # 왜 리다이렉트하면 안되지???
+        return redirect('/login/')
+       
