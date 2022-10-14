@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Signin</title>
+</head>
+<body>
+  <h2>Sign In</h2>
+  <form method="post" action ="signup/">
+  {% csrf_token %}
+  <input type="text" name="username" placeholder="아이디">아이디</input></br>
+  <input type="text" name="password" placeholder="비밀번호">비밀번호</input></br>
+  <input type="text" name="phone" placeholder="핸드폰 번호">핸드폰 번호</input></br>
+  <input type="text" name="address" placeholder="주소">주소</input></br>
+  <button type="submit">회원가입</button>
+  </form>
+</body>
+</html>
