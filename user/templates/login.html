@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Login</title>
+</head>
+<body>
+  <h2>Log In</h2>
+  <form method="post">
+  {% csrf_token %}
+  <input type="text" name="username">아이디</input></br>
+  <input type="text" name="password">비밀번호</input></br>
+  <button type="submit">로그인</button>
+  <button type="button" onclick="location.href='/signup/'">회원가입</button>
+  </form>
+</body>
+</html>
